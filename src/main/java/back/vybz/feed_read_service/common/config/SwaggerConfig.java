@@ -28,14 +28,14 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .addSecurityItem(securityRequirement)
                 .components(components)
-                .addServersItem(new Server().url("/feed-service"))
+                .addServersItem(new Server().url("/feed-read-service"))
                 .info(apiInfo());
     }
 
     private Info apiInfo() {
         return new Info()
-                .title("VYBZ USER SERVICE 문서")
-                .description("USER SERVICE API 테스트를 위한 Swagger UI")
+                .title("VYBZ FEED READ SERVICE 문서")
+                .description("FEED READ SERVICE API 테스트를 위한 Swagger UI")
                 .version("1.0.0");
     }
 
