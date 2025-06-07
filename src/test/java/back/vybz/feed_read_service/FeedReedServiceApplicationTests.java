@@ -1,4 +1,4 @@
-package back.vybz.feed_reed_service;
+package back.vybz.feed_read_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
