@@ -1,8 +1,8 @@
-package back.vybz.feed_service.feed.dto.response;
+package back.vybz.feed_read_service.feed.dto.response;
 
-import back.vybz.feed_service.feed.domain.mongodb.Feed;
-import back.vybz.feed_service.feed.vo.response.ResponseScrollReelsVo;
-import back.vybz.feed_service.common.util.CursorPage;
+import back.vybz.feed_read_service.feed.domain.ReelsRead;
+import back.vybz.feed_read_service.feed.vo.response.ResponseScrollReelsVo;
+import back.vybz.feed_read_service.common.util.CursorPage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class ResponseScrollReelsDto {
         this.nextCursor = nextCursor;
     }
 
-    public static ResponseScrollReelsDto from(CursorPage<Feed> cursorPage) {
+    public static ResponseScrollReelsDto from(CursorPage<ReelsRead> cursorPage) {
         return ResponseScrollReelsDto.builder()
                 .content(ResponseScrollReelsVo.listFrom(cursorPage.getContent()))
                 .hasNext(cursorPage.getHasNext())
