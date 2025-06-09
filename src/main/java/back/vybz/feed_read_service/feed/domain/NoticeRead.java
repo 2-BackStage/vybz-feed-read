@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.domain;
 
+import back.vybz.feed_read_service.kafka.event.NoticeCreateEvent;
+import back.vybz.feed_read_service.kafka.event.NoticeUpdateEvent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -80,4 +82,42 @@ public class NoticeRead {
         this.likeCount = likeCount;
         this.commentCount = commentCount;
     }
+
+
+    public static NoticeRead from(NoticeCreateEvent noticeCreateEvent) {
+        return NoticeRead.builder()
+                .id(noticeCreateEvent.getId())
+                .writerUuid(noticeCreateEvent.getWriterUuid())
+                .writerType(noticeCreateEvent.getWriterType())
+                .title(noticeCreateEvent.getTitle())
+                .content(noticeCreateEvent.getContent())
+                .location(noticeCreateEvent.getLocation())
+                .hashTag(noticeCreateEvent.getHashTag())
+                .humanTag(noticeCreateEvent.getHumanTag())
+                .fileList(noticeCreateEvent.getFileList())
+                .startedAt(noticeCreateEvent.getStartedAt())
+                .endedAt(noticeCreateEvent.getEndedAt())
+                .likeCount(0)
+                .commentCount(0)
+                .build();
+    }
+    public void updateWith(NoticeUpdateEvent event) {
+        this.title = event.getTitle();
+        this.content = event.getContent();
+        this.location = event.getLocation();
+        this.hashTag = event.getHashTag();
+        this.humanTag = event.getHumanTag();
+        this.fileList = event.getFileList();
+        this.startedAt = event.getStartedAt();
+        this.endedAt = event.getEndedAt();
+        this.updatedAt = Instant.now();
+    }
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+
 }

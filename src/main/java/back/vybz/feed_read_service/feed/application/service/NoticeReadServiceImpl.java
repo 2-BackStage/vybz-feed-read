@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.application.service;
 
+import back.vybz.feed_read_service.common.exception.BaseException;
+import back.vybz.feed_read_service.common.exception.BaseResponseStatus;
 import back.vybz.feed_read_service.common.util.CursorPage;
 import back.vybz.feed_read_service.feed.domain.NoticeRead;
 import back.vybz.feed_read_service.feed.dto.request.RequestScrollNoticeDto;
@@ -40,7 +42,7 @@ public class NoticeReadServiceImpl implements NoticeReadService {
     @Override
     public ResponseNoticeDto getNoticeDetail(String noticeId) {
         NoticeRead notice = noticeReadRepository.findById(noticeId)
-                .orElseThrow(() -> new IllegalArgumentException("공지 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOTICE_NOT_FOUND));
         return ResponseNoticeDto.from(notice);
     }
 }

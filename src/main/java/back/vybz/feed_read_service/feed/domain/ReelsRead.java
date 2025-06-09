@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.domain;
 
+import back.vybz.feed_read_service.kafka.event.ReelsCreateEvent;
+import back.vybz.feed_read_service.kafka.event.ReelsUpdateEvent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -66,5 +68,37 @@ public class ReelsRead {
         this.likeCount = likeCount;
         this.commentCount = commentCount;
     }
+
+    public static ReelsRead from(ReelsCreateEvent reelsCreateEvent) {
+        return ReelsRead.builder()
+                .id(reelsCreateEvent.getId())
+                .writerUuid(reelsCreateEvent.getWriterUuid())
+                .writerType(reelsCreateEvent.getWriterType())
+                .content(reelsCreateEvent.getContent())
+                .location(reelsCreateEvent.getLocation())
+                .hashTag(reelsCreateEvent.getHashTag())
+                .humanTag(reelsCreateEvent.getHumanTag())
+                .fileList(reelsCreateEvent.getFileList())
+                .likeCount(0)
+                .commentCount(0)
+                .build();
+    }
+
+    public void updateWith(ReelsUpdateEvent reelsUpdateEvent) {
+        this.content = reelsUpdateEvent.getContent();
+        this.location = reelsUpdateEvent.getLocation();
+        this.hashTag = reelsUpdateEvent.getHashTag();
+        this.humanTag = reelsUpdateEvent.getHumanTag();
+        this.fileList = reelsUpdateEvent.getFileList();
+        this.updatedAt = Instant.now();
+    }
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+
 
 }

@@ -18,19 +18,19 @@ public class ReelsReadServiceImpl implements ReelsReadService {
     private final ReelsReadRepository reelsReadRepository;
 
     @Override
-    public ResponseScrollReelsDto getReelsScrollList(RequestScrollReelsDto request) {
-        String cursor = request.getLastId();
+    public ResponseScrollReelsDto getReelsScrollList(RequestScrollReelsDto requestScrollReelsDto) {
+        String cursor = requestScrollReelsDto.getLastId();
 
         List<ReelsRead> reels = reelsReadRepository.findWithScroll(
-                request.getSortType(),
+                requestScrollReelsDto.getSortType(),
                 cursor,
                 null,
-                request.getSize() + 1
+                requestScrollReelsDto.getSize() + 1
         );
 
         CursorPage<ReelsRead> cursorPage = CursorPage.of(
                 reels,
-                request.getSize(),
+                requestScrollReelsDto.getSize(),
                 ReelsRead::getId
         );
 
@@ -42,19 +42,19 @@ public class ReelsReadServiceImpl implements ReelsReadService {
     }
 
     @Override
-    public ResponseScrollReelsDto getBuskerReelsScrollList(RequestScrollReelsDto request) {
-        String cursor = request.getLastId();
+    public ResponseScrollReelsDto getBuskerReelsScrollList(RequestScrollReelsDto requestScrollReelsDto) {
+        String cursor = requestScrollReelsDto.getLastId();
 
         List<ReelsRead> reels = reelsReadRepository.findWithScroll(
-                request.getSortType(),
+                requestScrollReelsDto.getSortType(),
                 cursor,
-                request.getWriterUuid(),
-                request.getSize() + 1
+                requestScrollReelsDto.getWriterUuid(),
+                requestScrollReelsDto.getSize() + 1
         );
 
         CursorPage<ReelsRead> cursorPage = CursorPage.of(
                 reels,
-                request.getSize(),
+                requestScrollReelsDto.getSize(),
                 ReelsRead::getId
         );
 

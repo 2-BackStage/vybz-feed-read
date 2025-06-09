@@ -52,6 +52,7 @@ public enum BaseResponseStatus {
     NO_AUTHORIZATION_TO_UPDATE_FAN_FEED(HttpStatus.FORBIDDEN, false, 415, "이 팬 피드를 수정할 권한이 없습니다."),
     NO_AUTHORIZATION_TO_DELETE_FAN_FEED(HttpStatus.FORBIDDEN, false, 416, "이 팬 피드를 삭제할 권한이 없습니다."),
     ABOUT_NOT_FOUND(HttpStatus.NOT_FOUND, false, 417, "존재하지 않는 소개입니다."),
+    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, false, 418, "존재하지 않는 공지입니다."),
 
     /**
      * 500: 서버 에러

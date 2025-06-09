@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.application.service;
 
+import back.vybz.feed_read_service.common.exception.BaseException;
+import back.vybz.feed_read_service.common.exception.BaseResponseStatus;
 import back.vybz.feed_read_service.common.util.CursorPage;
 import back.vybz.feed_read_service.feed.domain.FanFeedRead;
 import back.vybz.feed_read_service.feed.dto.request.RequestScrollFanFeedDto;
@@ -18,17 +20,17 @@ public class FanFeedReadServiceImpl implements FanFeedReadService {
     private final FanFeedReadRepository fanFeedReadRepository;
 
     @Override
-    public ResponseScrollFanFeedDto getFanFeedScrollList(RequestScrollFanFeedDto request) {
+    public ResponseScrollFanFeedDto getFanFeedScrollList(RequestScrollFanFeedDto requestScrollFanFeedDto) {
         List<FanFeedRead> feeds = fanFeedReadRepository.findWithScroll(
-                request.getSortType(),
-                request.getLastId(),
-                request.getWriterUuid(),
-                request.getSize() + 1
+                requestScrollFanFeedDto.getSortType(),
+                requestScrollFanFeedDto.getLastId(),
+                requestScrollFanFeedDto.getWriterUuid(),
+                requestScrollFanFeedDto.getSize() + 1
         );
 
         CursorPage<FanFeedRead> cursorPage = CursorPage.of(
                 feeds,
-                request.getSize(),
+                requestScrollFanFeedDto.getSize(),
                 FanFeedRead::getId
         );
 
@@ -38,7 +40,7 @@ public class FanFeedReadServiceImpl implements FanFeedReadService {
     @Override
     public ResponseFanFeedDto getFanFeedDetail(String fanFeedId) {
         FanFeedRead fanFeed = fanFeedReadRepository.findById(fanFeedId)
-                .orElseThrow(() -> new IllegalArgumentException("팬피드 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.FAN_FEED_NOT_FOUND));
         return ResponseFanFeedDto.from(fanFeed);
     }
 }

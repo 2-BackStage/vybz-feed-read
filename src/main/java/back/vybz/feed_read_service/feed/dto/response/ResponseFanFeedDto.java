@@ -46,17 +46,17 @@ public class ResponseFanFeedDto {
         this.createdAt = createdAt;
     }
 
-    public static ResponseFanFeedDto from(FanFeedRead feed) {
+    public static ResponseFanFeedDto from(FanFeedRead fanFeedRead) {
         return ResponseFanFeedDto.builder()
-                .id(feed.getId())
-                .content(feed.getContent())
-                .location(feed.getLocation())
-                .hashTag(feed.getHashTag())
-                .humanTag(feed.getHumanTag())
-                .fileList(feed.getFileList())
-                .likeCount(feed.getLikeCount())
-                .commentCount(feed.getCommentCount())
-                .createdAt(feed.getCreatedAt())
+                .id(fanFeedRead.getId())
+                .content(fanFeedRead.getContent())
+                .location(fanFeedRead.getLocation())
+                .hashTag(fanFeedRead.getHashTag())
+                .humanTag(fanFeedRead.getHumanTag())
+                .fileList(fanFeedRead.getFileList())
+                .likeCount(fanFeedRead.getLikeCount())
+                .commentCount(fanFeedRead.getCommentCount())
+                .createdAt(fanFeedRead.getCreatedAt())
                 .build();
     }
 

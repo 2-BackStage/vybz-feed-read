@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.domain;
 
+import back.vybz.feed_read_service.kafka.event.AboutCreateEvent;
+import back.vybz.feed_read_service.kafka.event.AboutUpdateEvent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,5 +62,25 @@ public class AboutRead {
         this.fileList = fileList;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+
+    public static AboutRead from(AboutCreateEvent aboutCreateEvent) {
+        return AboutRead.builder()
+                .id(aboutCreateEvent.getId())
+                .writerUuid(aboutCreateEvent.getWriterUuid())
+                .writerType(aboutCreateEvent.getWriterType())
+                .content(aboutCreateEvent.getContent())
+                .hashTag(aboutCreateEvent.getHashTag())
+                .fileList(aboutCreateEvent.getFileList())
+                .createdAt(aboutCreateEvent.getCreatedAt())
+                .build();
+    }
+
+    public void updateWith(AboutUpdateEvent event) {
+        this.content = event.getContent();
+        this.hashTag = event.getHashTag();
+        this.fileList = event.getFileList();
+        this.updatedAt = Instant.now();
     }
 }

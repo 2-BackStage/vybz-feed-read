@@ -1,5 +1,7 @@
 package back.vybz.feed_read_service.feed.domain;
 
+import back.vybz.feed_read_service.kafka.event.FanFeedCreateEvent;
+import back.vybz.feed_read_service.kafka.event.FanFeedUpdateEvent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,4 +72,35 @@ public class FanFeedRead {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public static FanFeedRead from(FanFeedCreateEvent fanFeedCreateEvent) {
+        return FanFeedRead.builder()
+                .id(fanFeedCreateEvent.getId())
+                .writerUuid(fanFeedCreateEvent.getWriterUuid())
+                .writerType(fanFeedCreateEvent.getWriterType())
+                .content(fanFeedCreateEvent.getContent())
+                .location(fanFeedCreateEvent.getLocation())
+                .hashTag(fanFeedCreateEvent.getHashTag())
+                .humanTag(fanFeedCreateEvent.getHumanTag())
+                .fileList(fanFeedCreateEvent.getFileList())
+                .likeCount(0)
+                .commentCount(0)
+                .createdAt(fanFeedCreateEvent.getCreatedAt())
+                .build();
+    }
+    public void updateWith(FanFeedUpdateEvent fanFeedUpdateEvent) {
+        this.content = fanFeedUpdateEvent.getContent();
+        this.location = fanFeedUpdateEvent.getLocation();
+        this.hashTag = fanFeedUpdateEvent.getHashTag();
+        this.humanTag = fanFeedUpdateEvent.getHumanTag();
+        this.fileList = fanFeedUpdateEvent.getFileList();
+        this.updatedAt = Instant.now();
+    }
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
 }
