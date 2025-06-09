@@ -1,4 +1,4 @@
-package back.vybz.feed_reed_service;
+package back.vybz.feed_read_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
