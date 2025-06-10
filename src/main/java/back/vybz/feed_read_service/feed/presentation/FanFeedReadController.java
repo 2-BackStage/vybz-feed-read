@@ -43,11 +43,38 @@ public class FanFeedReadController {
     }
 
     @Operation(
+            summary = "사용자 피드 무한스크롤 조회 API",
+            description = "특정 사용자의 팬피드를 무한스크롤 방식으로 조회합니다. " +
+                    "size는 한 페이지에 가져올 개수이며, 다음 목록 요청 시에는 lastId에 이전 목록의 마지막 id를 넣어주세요. " +
+                    "sortType은 정렬 기준입니다. 'LATEST', 'LIKES', 'COMMENTS' 중 하나를 입력해주세요.",
+            tags = {"FAN-FEED-READ-SERVICE"}
+    )
+    @GetMapping("/fan/{writerUuid}")
+    public BaseResponseEntity<ResponseScrollFanFeedDto> getUserFanFeeds(
+            @PathVariable String writerUuid,
+            @RequestParam(required = false) String lastId,
+            @RequestParam(defaultValue = "LATEST") String sortType,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        RequestScrollFanFeedDto requestDto = RequestScrollFanFeedDto.builder()
+                .lastId(lastId)
+                .sortType(sortType)
+                .size(size)
+                .writerUuid(writerUuid)
+                .build();
+
+        return BaseResponseEntity.ok(fanFeedReadService.getUserFanFeedScrollList(requestDto));
+    }
+
+
+
+
+    @Operation(
             summary = "팬피드 상세 조회 API",
             description = "팬피드 상세 정보를 조회하는 API입니다.",
             tags = {"FAN-FEED-READ-SERVICE"}
     )
-    @GetMapping("/fan/{fanFeedId}")
+    @GetMapping("/{fanFeedId}")
     public BaseResponseEntity<ResponseFanFeedVo> getFanFeedDetail(@PathVariable String fanFeedId) {
         ResponseFanFeedDto responseDto = fanFeedReadService.getFanFeedDetail(fanFeedId);
         return BaseResponseEntity.ok(responseDto.toVo());
