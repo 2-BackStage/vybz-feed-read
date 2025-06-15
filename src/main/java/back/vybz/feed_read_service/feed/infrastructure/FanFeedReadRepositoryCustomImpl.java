@@ -25,7 +25,8 @@ public class FanFeedReadRepositoryCustomImpl implements FanFeedReadRepositoryCus
         }
 
         if (writerUuid != null && !writerUuid.isBlank()) {
-            query.addCriteria(Criteria.where("writerUuid").is(writerUuid));
+            query.addCriteria(Criteria.where("writerUuid").is(writerUuid)
+                    .and("writerType").is("USER"));
         }
 
         Sort sort = switch (sortType.toUpperCase()) {
