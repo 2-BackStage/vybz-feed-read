@@ -18,7 +18,7 @@ public class AboutEventConsumer {
 
     @KafkaListener(
             topics = "about-create",
-            groupId = "feed-read-about-group",
+            groupId = "create-feed-read-about-group",
             containerFactory = "aboutCreateKafkaListenerContainerFactory"
     )
     public void consumeAboutCreateEvent(AboutCreateEvent event) {
@@ -28,7 +28,7 @@ public class AboutEventConsumer {
 
     @KafkaListener(
             topics = "about-update",
-            groupId = "feed-read-about-group",
+            groupId = "update-feed-read-about-group",
             containerFactory = "aboutUpdateKafkaListenerContainerFactory"
     )
     public void consumeAboutUpdateEvent(AboutUpdateEvent event) {

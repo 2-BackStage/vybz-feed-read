@@ -18,7 +18,7 @@ public class NoticeEventConsumer {
 
     @KafkaListener(
             topics = "notice-create",
-            groupId = "feed-read-notice-group",
+            groupId = "create-feed-read-notice-group",
             containerFactory = "noticeCreateKafkaListenerContainerFactory"
     )
     public void consumeNoticeCreateEvent(NoticeCreateEvent event) {
@@ -28,7 +28,7 @@ public class NoticeEventConsumer {
 
     @KafkaListener(
             topics = "notice-update",
-            groupId = "feed-read-notice-group",
+            groupId = "update-feed-read-notice-group",
             containerFactory = "noticeUpdateKafkaListenerContainerFactory"
     )
     public void consumeNoticeUpdateEvent(NoticeUpdateEvent event) {

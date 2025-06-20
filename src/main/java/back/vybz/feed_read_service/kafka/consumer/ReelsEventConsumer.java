@@ -18,7 +18,7 @@ public class ReelsEventConsumer {
 
     @KafkaListener(
             topics = "reels-create",
-            groupId = "feed-read-reels-group",
+            groupId = "create-feed-read-reels-group",
             containerFactory = "reelsCreateKafkaListenerContainerFactory"
     )
     public void consumeReelsCreateEvent(ReelsCreateEvent event) {
@@ -28,7 +28,7 @@ public class ReelsEventConsumer {
 
     @KafkaListener(
             topics = "reels-update",
-            groupId = "feed-read-reels-group",
+            groupId = "update-feed-read-reels-group",
             containerFactory = "reelsUpdateKafkaListenerContainerFactory"
     )
     public void consumeReelsUpdateEvent(ReelsUpdateEvent event) {
