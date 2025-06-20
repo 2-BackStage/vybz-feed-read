@@ -5,6 +5,7 @@ import back.vybz.feed_read_service.feed.dto.response.ResponseFanFeedDto;
 import back.vybz.feed_read_service.feed.dto.response.ResponseScrollFanFeedDto;
 
 public interface FanFeedReadService {
-    ResponseScrollFanFeedDto getFanFeedScrollList(RequestScrollFanFeedDto request);
+    ResponseScrollFanFeedDto getFanFeedScrollList(RequestScrollFanFeedDto requestScrollFanFeedDto);
+    ResponseScrollFanFeedDto getUserFanFeedScrollList(RequestScrollFanFeedDto requestScrollFanFeedDto);
     ResponseFanFeedDto getFanFeedDetail(String fanFeedId);
 }

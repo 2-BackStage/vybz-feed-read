@@ -38,6 +38,30 @@ public class FanFeedReadServiceImpl implements FanFeedReadService {
     }
 
     @Override
+    public ResponseScrollFanFeedDto getUserFanFeedScrollList(RequestScrollFanFeedDto requestScrollFanFeedDto){
+        String cursor = requestScrollFanFeedDto.getLastId();
+
+        List<FanFeedRead> feeds = fanFeedReadRepository.findWithScroll(
+                requestScrollFanFeedDto.getSortType(),
+                cursor,
+                requestScrollFanFeedDto.getWriterUuid(),
+                requestScrollFanFeedDto.getSize() + 1
+        );
+
+        CursorPage<FanFeedRead> cursorPage = CursorPage.of(
+                feeds,
+                requestScrollFanFeedDto.getSize(),
+                FanFeedRead::getId
+        );
+        return ResponseScrollFanFeedDto.from(cursorPage);
+    }
+
+
+
+
+
+
+    @Override
     public ResponseFanFeedDto getFanFeedDetail(String fanFeedId) {
         FanFeedRead fanFeed = fanFeedReadRepository.findById(fanFeedId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.FAN_FEED_NOT_FOUND));
