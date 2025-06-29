@@ -18,7 +18,7 @@ public class FanFeedEventConsumer {
 
     @KafkaListener(
             topics = "fanfeed-create",
-            groupId = "feed-read-fanfeed-group",
+            groupId = "create-feed-read-fanfeed-group",
             containerFactory = "fanFeedCreateKafkaListenerContainerFactory"
     )
     public void consumeFanFeedCreateEvent(FanFeedCreateEvent event) {
@@ -38,7 +38,7 @@ public class FanFeedEventConsumer {
 
     @KafkaListener(
             topics = "fanfeed-update",
-            groupId = "feed-read-fanfeed-group",
+            groupId = "update-feed-read-fanfeed-group",
             containerFactory = "fanFeedUpdateKafkaListenerContainerFactory"
     )
     public void consumeFanFeedUpdateEvent(FanFeedUpdateEvent event) {
