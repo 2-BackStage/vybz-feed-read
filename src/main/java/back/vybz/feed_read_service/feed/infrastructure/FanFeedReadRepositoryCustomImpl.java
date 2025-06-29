@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.infrastructure;
 
-import back.vybz.feed_read_service.feed.domain.FanFeedRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,8 +17,10 @@ public class FanFeedReadRepositoryCustomImpl implements FanFeedReadRepositoryCus
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public List<FanFeedRead> findWithScroll(String sortType, String lastId, String writerUuid, int size) {
+    public List<FeedRead> findWithScroll(String sortType, String lastId, String writerUuid, int size) {
         Query query = new Query();
+
+        query.addCriteria(Criteria.where("feedType").is("FAN_FEED"));
 
         if (lastId != null && !lastId.isBlank()) {
             query.addCriteria(Criteria.where("_id").lt(lastId));
@@ -37,6 +39,6 @@ public class FanFeedReadRepositoryCustomImpl implements FanFeedReadRepositoryCus
 
         query.with(sort).limit(size + 1);
 
-        return mongoTemplate.find(query, FanFeedRead.class);
+        return mongoTemplate.find(query, FeedRead.class);
     }
 }

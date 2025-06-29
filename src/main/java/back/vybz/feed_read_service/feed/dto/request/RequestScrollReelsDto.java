@@ -12,15 +12,18 @@ public class RequestScrollReelsDto {
     private String writerUuid;
     private String sortType;
     private int size;
+    private String userUuid;
 
     @Builder
     public RequestScrollReelsDto(String lastId,
                                  String writerUuid,
                                  String sortType,
-                                 int size) {
+                                 int size,
+                                 String userUuid) {
         this.lastId = lastId;
         this.writerUuid = writerUuid;
         this.sortType = sortType;
         this.size = size;
+        this.userUuid = userUuid;
     }
 }

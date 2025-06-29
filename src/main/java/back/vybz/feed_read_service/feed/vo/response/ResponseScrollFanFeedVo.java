@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.vo.response;
 
-import back.vybz.feed_read_service.feed.domain.FanFeedRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.domain.FeedFile;
 import back.vybz.feed_read_service.feed.domain.TaggedHuman;
 import lombok.Builder;
@@ -46,7 +46,7 @@ public class ResponseScrollFanFeedVo {
         this.createdAt = createdAt;
     }
 
-    public static ResponseScrollFanFeedVo from(FanFeedRead feed) {
+    public static ResponseScrollFanFeedVo from(FeedRead feed) {
         return ResponseScrollFanFeedVo.builder()
                 .id(feed.getId())
                 .content(feed.getContent())
@@ -60,7 +60,7 @@ public class ResponseScrollFanFeedVo {
                 .build();
     }
 
-    public static List<ResponseScrollFanFeedVo> listFrom(List<FanFeedRead> feedList) {
+    public static List<ResponseScrollFanFeedVo> listFrom(List<FeedRead> feedList) {
         return feedList.stream()
                 .map(ResponseScrollFanFeedVo::from)
                 .collect(Collectors.toList());

@@ -1,7 +1,7 @@
 package back.vybz.feed_read_service.feed.vo.response;
 
 import back.vybz.feed_read_service.feed.domain.FeedFile;
-import back.vybz.feed_read_service.feed.domain.NoticeRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.domain.TaggedHuman;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,25 +55,25 @@ public class ResponseScrollNoticeVo {
         this.createdAt = createdAt;
     }
 
-    public static ResponseScrollNoticeVo from(NoticeRead noticeRead) {
+    public static ResponseScrollNoticeVo from(FeedRead feedRead) {
         return ResponseScrollNoticeVo.builder()
-                .id(noticeRead.getId())
-                .title(noticeRead.getTitle())
-                .content(noticeRead.getContent())
-                .location(noticeRead.getLocation())
-                .hashTag(noticeRead.getHashTag())
-                .humanTag(noticeRead.getHumanTag())
-                .fileList(noticeRead.getFileList())
-                .startedAt(noticeRead.getStartedAt())
-                .endedAt(noticeRead.getEndedAt())
-                .likeCount(noticeRead.getLikeCount())
-                .commentCount(noticeRead.getCommentCount())
-                .createdAt(noticeRead.getCreatedAt())
+                .id(feedRead.getId())
+                .title(feedRead.getTitle())
+                .content(feedRead.getContent())
+                .location(feedRead.getLocation())
+                .hashTag(feedRead.getHashTag())
+                .humanTag(feedRead.getHumanTag())
+                .fileList(feedRead.getFileList())
+                .startedAt(feedRead.getStartedAt())
+                .endedAt(feedRead.getEndedAt())
+                .likeCount(feedRead.getLikeCount())
+                .commentCount(feedRead.getCommentCount())
+                .createdAt(feedRead.getCreatedAt())
                 .build();
     }
 
-    public static List<ResponseScrollNoticeVo> listFrom(List<NoticeRead> noticeList) {
-        return noticeList.stream()
+    public static List<ResponseScrollNoticeVo> listFrom(List<FeedRead> feedList) {
+        return feedList.stream()
                 .map(ResponseScrollNoticeVo::from)
                 .collect(Collectors.toList());
     }

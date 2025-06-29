@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.kafka.consumer;
 
-import back.vybz.feed_read_service.feed.domain.AboutRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.infrastructure.AboutReadRepository;
 import back.vybz.feed_read_service.kafka.event.AboutCreateEvent;
 import back.vybz.feed_read_service.kafka.event.AboutUpdateEvent;
@@ -23,7 +23,15 @@ public class AboutEventConsumer {
     )
     public void consumeAboutCreateEvent(AboutCreateEvent event) {
         log.info("🟢 어바웃 생성 이벤트 수신: {}", event);
-        aboutReadRepository.save(AboutRead.from(event));
+        FeedRead feedRead = FeedRead.createAbout(
+                event.getId(),
+                event.getWriterUuid(),
+                event.getWriterType(),
+                event.getContent(),
+                event.getHashTag(),
+                event.getFileList()
+        );
+        aboutReadRepository.save(feedRead);
     }
 
     @KafkaListener(
@@ -34,9 +42,9 @@ public class AboutEventConsumer {
     public void consumeAboutUpdateEvent(AboutUpdateEvent event) {
         log.info("🟡 어바웃 수정 이벤트 수신: {}", event);
         aboutReadRepository.findById(event.getId())
-                .ifPresent(about -> {
-                    about.updateWith(event);
-                    aboutReadRepository.save(about);
+                .ifPresent(feedRead -> {
+                    feedRead.updateAbout(event.getContent(), event.getHashTag(), event.getFileList());
+                    aboutReadRepository.save(feedRead);
                 });
     }
 }

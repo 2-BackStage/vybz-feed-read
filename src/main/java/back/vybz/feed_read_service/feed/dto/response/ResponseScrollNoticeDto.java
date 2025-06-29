@@ -2,7 +2,7 @@ package back.vybz.feed_read_service.feed.dto.response;
 
 import back.vybz.feed_read_service.common.util.CursorPage;
 import back.vybz.feed_read_service.feed.vo.response.ResponseScrollNoticeVo;
-import back.vybz.feed_read_service.feed.domain.NoticeRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class ResponseScrollNoticeDto {
         this.nextCursor = nextCursor;
     }
 
-    public static ResponseScrollNoticeDto from(CursorPage<NoticeRead> cursorPage){
+    public static ResponseScrollNoticeDto from(CursorPage<FeedRead> cursorPage){
         return ResponseScrollNoticeDto.builder()
                 .content(ResponseScrollNoticeVo.listFrom(cursorPage.getContent()))
                 .hasNext(cursorPage.getHasNext())

@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.dto.response;
 
-import back.vybz.feed_read_service.feed.domain.FanFeedRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.domain.FeedFile;
 import back.vybz.feed_read_service.feed.domain.TaggedHuman;
 import back.vybz.feed_read_service.feed.vo.response.ResponseFanFeedVo;
@@ -46,17 +46,17 @@ public class ResponseFanFeedDto {
         this.createdAt = createdAt;
     }
 
-    public static ResponseFanFeedDto from(FanFeedRead fanFeedRead) {
+    public static ResponseFanFeedDto from(FeedRead feedRead) {
         return ResponseFanFeedDto.builder()
-                .id(fanFeedRead.getId())
-                .content(fanFeedRead.getContent())
-                .location(fanFeedRead.getLocation())
-                .hashTag(fanFeedRead.getHashTag())
-                .humanTag(fanFeedRead.getHumanTag())
-                .fileList(fanFeedRead.getFileList())
-                .likeCount(fanFeedRead.getLikeCount())
-                .commentCount(fanFeedRead.getCommentCount())
-                .createdAt(fanFeedRead.getCreatedAt())
+                .id(feedRead.getId())
+                .content(feedRead.getContent())
+                .location(feedRead.getLocation())
+                .hashTag(feedRead.getHashTag())
+                .humanTag(feedRead.getHumanTag())
+                .fileList(feedRead.getFileList())
+                .likeCount(feedRead.getLikeCount())
+                .commentCount(feedRead.getCommentCount())
+                .createdAt(feedRead.getCreatedAt())
                 .build();
     }
 

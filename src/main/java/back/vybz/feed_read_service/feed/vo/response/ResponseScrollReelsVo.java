@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.vo.response;
 
-import back.vybz.feed_read_service.feed.domain.ReelsRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +40,7 @@ public class ResponseScrollReelsVo {
         this.createdAt = createdAt;
     }
 
-    public static ResponseScrollReelsVo from(ReelsRead feed) {
+    public static ResponseScrollReelsVo from(FeedRead feed) {
         return ResponseScrollReelsVo.builder()
                 .id(feed.getId())
                 .writerUuid(feed.getWriterUuid())
@@ -53,7 +53,7 @@ public class ResponseScrollReelsVo {
                 .build();
     }
 
-    public static List<ResponseScrollReelsVo> listFrom(List<ReelsRead> reelsList) {
+    public static List<ResponseScrollReelsVo> listFrom(List<FeedRead> reelsList) {
         return reelsList.stream()
                 .map(ResponseScrollReelsVo::from)
                 .toList();

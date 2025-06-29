@@ -25,6 +25,7 @@ public class ReelsCreateEvent {
     private List<String> hashTag;
     private List<TaggedHuman> humanTag;
     private List<FeedFile> fileList;
+    private boolean memberShip;
     private Instant createdAt;
 
 

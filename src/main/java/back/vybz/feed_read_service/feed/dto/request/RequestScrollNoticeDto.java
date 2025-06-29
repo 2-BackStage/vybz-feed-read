@@ -10,11 +10,13 @@ public class RequestScrollNoticeDto {
     private String lastId;
     private String sortType;
     private int size;
+    private String userUuid;
 
     @Builder
-    private RequestScrollNoticeDto(String lastId, String sortType, int size) {
+    private RequestScrollNoticeDto(String lastId, String sortType, int size, String userUuid) {
         this.lastId = lastId;
         this.sortType = sortType;
         this.size = size;
+        this.userUuid = userUuid;
     }
 }

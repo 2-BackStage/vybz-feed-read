@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.kafka.consumer;
 
-import back.vybz.feed_read_service.feed.domain.FanFeedRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.infrastructure.FanFeedReadRepository;
 import back.vybz.feed_read_service.kafka.event.FanFeedCreateEvent;
 import back.vybz.feed_read_service.kafka.event.FanFeedUpdateEvent;
@@ -23,7 +23,17 @@ public class FanFeedEventConsumer {
     )
     public void consumeFanFeedCreateEvent(FanFeedCreateEvent event) {
         log.info("🟢 팬피드 생성 이벤트 수신: {}", event);
-        fanFeedReadRepository.save(FanFeedRead.from(event));
+        FeedRead feedRead = FeedRead.createFanFeed(
+                event.getId(),
+                event.getWriterUuid(),
+                event.getWriterType(),
+                event.getContent(),
+                event.getLocation(),
+                event.getHashTag(),
+                event.getHumanTag(),
+                event.getFileList()
+        );
+        fanFeedReadRepository.save(feedRead);
     }
 
     @KafkaListener(
@@ -34,9 +44,9 @@ public class FanFeedEventConsumer {
     public void consumeFanFeedUpdateEvent(FanFeedUpdateEvent event) {
         log.info("🟡 팬피드 수정 이벤트 수신: {}", event);
         fanFeedReadRepository.findById(event.getId())
-                .ifPresent(fanFeed -> {
-                    fanFeed.updateWith(event);
-                    fanFeedReadRepository.save(fanFeed);
+                .ifPresent(feedRead -> {
+                    feedRead.updateFanFeed(event.getContent(), event.getLocation(), event.getHashTag(), event.getHumanTag(), event.getFileList());
+                    fanFeedReadRepository.save(feedRead);
                 });
     }
 }

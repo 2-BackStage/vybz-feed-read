@@ -29,6 +29,7 @@ public class NoticeCreateEvent {
     private List<FeedFile> fileList;
     private Instant startedAt;
     private Instant endedAt;
+    private boolean memberShip;
     private Instant createdAt;
 
 

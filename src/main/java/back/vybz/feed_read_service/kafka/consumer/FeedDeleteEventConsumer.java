@@ -29,6 +29,8 @@ public class FeedDeleteEventConsumer {
     public void consumeFeedDeleteEvent(FeedDeleteEvent event) {
         log.info("🗑️ 피드 삭제 이벤트 수신: {}", event);
 
+        // 모든 Repository가 FeedRead를 사용하므로 어느 Repository든 상관없이 삭제 가능
+        // 하지만 타입별로 분리된 Repository를 사용하는 구조를 유지
         switch (event.getFeedType()) {
             case FAN_FEED -> fanFeedReadRepository.deleteById(event.getId());
             case REELS -> reelsReadRepository.deleteById(event.getId());

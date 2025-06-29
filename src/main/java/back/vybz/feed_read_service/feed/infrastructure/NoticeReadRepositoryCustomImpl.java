@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.infrastructure;
 
-import back.vybz.feed_read_service.feed.domain.NoticeRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,8 +17,11 @@ public class NoticeReadRepositoryCustomImpl implements NoticeReadRepositoryCusto
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public List<NoticeRead> findWithScroll(String sortType, String lastId, int size) {
+    public List<FeedRead> findWithScroll(String sortType, String lastId, int size) {
         Query query = new Query();
+
+        // 공지사항만 조회하도록 필터 추가
+        query.addCriteria(Criteria.where("feedType").is("NOTICE"));
 
         if (lastId != null && !lastId.isBlank()) {
             query.addCriteria(Criteria.where("_id").lt(lastId)); // ✅ String으로 직접 비교
@@ -32,6 +35,6 @@ public class NoticeReadRepositoryCustomImpl implements NoticeReadRepositoryCusto
 
         query.with(sort).limit(size + 1);
 
-        return mongoTemplate.find(query, NoticeRead.class);
+        return mongoTemplate.find(query, FeedRead.class);
     }
 }

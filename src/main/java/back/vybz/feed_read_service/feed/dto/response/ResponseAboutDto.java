@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.dto.response;
 
-import back.vybz.feed_read_service.feed.domain.AboutRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.domain.FeedFile;
 import back.vybz.feed_read_service.feed.vo.response.ResponseAboutVo;
 import lombok.Builder;
@@ -32,13 +32,13 @@ public class ResponseAboutDto {
         this.createdAt = createdAt;
     }
 
-    public static ResponseAboutDto from(AboutRead aboutRead) {
+    public static ResponseAboutDto from(FeedRead feedRead) {
         return ResponseAboutDto.builder()
-                .id(aboutRead.getId())
-                .content(aboutRead.getContent())
-                .hashTag(aboutRead.getHashTag())
-                .fileList(aboutRead.getFileList())
-                .createdAt(aboutRead.getCreatedAt())
+                .id(feedRead.getId())
+                .content(feedRead.getContent())
+                .hashTag(feedRead.getHashTag())
+                .fileList(feedRead.getFileList())
+                .createdAt(feedRead.getCreatedAt())
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.kafka.consumer;
 
-import back.vybz.feed_read_service.feed.domain.ReelsRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.infrastructure.ReelsReadRepository;
 import back.vybz.feed_read_service.kafka.event.ReelsCreateEvent;
 import back.vybz.feed_read_service.kafka.event.ReelsUpdateEvent;
@@ -23,7 +23,18 @@ public class ReelsEventConsumer {
     )
     public void consumeReelsCreateEvent(ReelsCreateEvent event) {
         log.info("🟢 릴스 생성 이벤트 수신: {}", event);
-        reelsReadRepository.save(ReelsRead.from(event));
+        FeedRead feedRead = FeedRead.createReels(
+                event.getId(),
+                event.getWriterUuid(),
+                event.getWriterType(),
+                event.getContent(),
+                event.getLocation(),
+                event.getHashTag(),
+                event.getHumanTag(),
+                event.getFileList(),
+                event.isMemberShip() // 이벤트에서 멤버십 정보 가져오기
+        );
+        reelsReadRepository.save(feedRead);
     }
 
     @KafkaListener(
@@ -34,9 +45,9 @@ public class ReelsEventConsumer {
     public void consumeReelsUpdateEvent(ReelsUpdateEvent event) {
         log.info("🟡 릴스 수정 이벤트 수신: {}", event);
         reelsReadRepository.findById(event.getId())
-                .ifPresent(reels -> {
-                    reels.updateWith(event);
-                    reelsReadRepository.save(reels);
+                .ifPresent(feedRead -> {
+                    feedRead.updateReels(event.getContent(), event.getLocation(), event.getHashTag(), event.getHumanTag(), event.getFileList());
+                    reelsReadRepository.save(feedRead);
                 });
     }
 }

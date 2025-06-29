@@ -1,7 +1,7 @@
 package back.vybz.feed_read_service.feed.dto.response;
 
 import back.vybz.feed_read_service.common.util.CursorPage;
-import back.vybz.feed_read_service.feed.domain.FanFeedRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.vo.response.ResponseScrollFanFeedVo;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class ResponseScrollFanFeedDto {
         this.nextCursor = nextCursor;
     }
 
-    public static ResponseScrollFanFeedDto from(CursorPage<FanFeedRead> cursorPage) {
+    public static ResponseScrollFanFeedDto from(CursorPage<FeedRead> cursorPage) {
         return ResponseScrollFanFeedDto.builder()
                 .content(ResponseScrollFanFeedVo.listFrom(cursorPage.getContent()))
                 .hasNext(cursorPage.getHasNext())

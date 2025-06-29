@@ -1,6 +1,6 @@
 package back.vybz.feed_read_service.feed.dto.response;
 
-import back.vybz.feed_read_service.feed.domain.NoticeRead;
+import back.vybz.feed_read_service.feed.domain.FeedRead;
 import back.vybz.feed_read_service.feed.domain.FeedFile;
 import back.vybz.feed_read_service.feed.domain.TaggedHuman;
 import back.vybz.feed_read_service.feed.domain.WriterType;
@@ -56,20 +56,20 @@ public class ResponseNoticeDto {
         this.createdAt = createdAt;
     }
 
-    public static ResponseNoticeDto from(NoticeRead noticeRead) {
+    public static ResponseNoticeDto from(FeedRead feedRead) {
         return ResponseNoticeDto.builder()
-                .id(noticeRead.getId())
-                .title(noticeRead.getTitle())
-                .content(noticeRead.getContent())
-                .location(noticeRead.getLocation())
-                .hashTag(noticeRead.getHashTag())
-                .humanTag(noticeRead.getHumanTag())
-                .fileList(noticeRead.getFileList())
-                .startedAt(noticeRead.getStartedAt())
-                .endedAt(noticeRead.getEndedAt())
-                .likeCount(noticeRead.getLikeCount())
-                .commentCount(noticeRead.getCommentCount())
-                .createdAt(noticeRead.getCreatedAt())
+                .id(feedRead.getId())
+                .title(feedRead.getTitle())
+                .content(feedRead.getContent())
+                .location(feedRead.getLocation())
+                .hashTag(feedRead.getHashTag())
+                .humanTag(feedRead.getHumanTag())
+                .fileList(feedRead.getFileList())
+                .startedAt(feedRead.getStartedAt())
+                .endedAt(feedRead.getEndedAt())
+                .likeCount(feedRead.getLikeCount())
+                .commentCount(feedRead.getCommentCount())
+                .createdAt(feedRead.getCreatedAt())
                 .build();
     }
 
