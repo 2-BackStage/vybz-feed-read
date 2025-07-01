@@ -74,7 +74,7 @@ public class FanFeedReadController {
             description = "팬피드 상세 정보를 조회하는 API입니다.",
             tags = {"FAN-FEED-READ-SERVICE"}
     )
-    @GetMapping("/{fanFeedId}")
+    @GetMapping("/fan/{fanFeedId}")
     public BaseResponseEntity<ResponseFanFeedVo> getFanFeedDetail(@PathVariable String fanFeedId) {
         ResponseFanFeedDto responseDto = fanFeedReadService.getFanFeedDetail(fanFeedId);
         return BaseResponseEntity.ok(responseDto.toVo());
