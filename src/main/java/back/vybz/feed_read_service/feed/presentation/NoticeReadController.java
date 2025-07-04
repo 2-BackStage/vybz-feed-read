@@ -23,19 +23,22 @@ public class NoticeReadController {
             summary = "공지 목록 무한스크롤 조회 API",
             description = "공지 데이터를 무한스크롤 방식으로 조회합니다. " +
                     "size는 한 페이지에 가져올 개수이며, 다음 목록 요청 시에는 lastId에 이전 목록의 마지막 id를 넣어주세요. " +
-                    "sortType은 정렬 기준입니다. 'LATEST', 'LIKES', 'COMMENTS' 중 하나를 입력해주세요.",
+                    "sortType은 정렬 기준입니다. 'LATEST', 'LIKES', 'COMMENTS' 중 하나를 입력해주세요. " +
+                    "buskerUuid를 입력하면 특정 버스커의 공지만 조회합니다.",
             tags = {"BUSKER-SERVICE"}
     )
     @GetMapping("/notice")
     public BaseResponseEntity<ResponseScrollNoticeDto> getNotices(
             @RequestParam(required = false) String lastId,
             @RequestParam(defaultValue = "LATEST") String sortType,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String buskerUuid
     ) {
         RequestScrollNoticeDto requestDto = RequestScrollNoticeDto.builder()
                 .lastId(lastId)
                 .sortType(sortType)
                 .size(size)
+                .buskerUuid(buskerUuid)
                 .build();
 
         return BaseResponseEntity.ok(noticeReadService.getNoticeScrollList(requestDto));

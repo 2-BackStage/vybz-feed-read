@@ -26,4 +26,15 @@ public class AboutReadController {
         ResponseAboutDto responseAboutDto = aboutReadService.getAboutRead(aboutId);
         return BaseResponseEntity.ok(responseAboutDto.toVo());
     }
+
+    @Operation(
+            summary = "버스커 자기소개 조회 API",
+            description = "특정 버스커의 자기소개를 조회하는 API입니다.",
+            tags = {"ABOUT-READ-SERVICE"}
+    )
+    @GetMapping("/about/busker/{writerUuid}")
+    public BaseResponseEntity<ResponseAboutVo> getBuskerAbout(@PathVariable String writerUuid) {
+        ResponseAboutDto responseAboutDto = aboutReadService.getBuskerAboutRead(writerUuid);
+        return BaseResponseEntity.ok(responseAboutDto.toVo());
+    }
 }

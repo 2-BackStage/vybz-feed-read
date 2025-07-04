@@ -21,5 +21,10 @@ public class AboutReadServiceImpl implements AboutReadService{
         return ResponseAboutDto.from(aboutRead);
     }
 
-
+    @Override
+    public ResponseAboutDto getBuskerAboutRead(String writerUuid) {
+        FeedRead aboutRead = aboutReadRepository.findByWriterUuid(writerUuid)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.ABOUT_NOT_FOUND));
+        return ResponseAboutDto.from(aboutRead);
+    }
 }

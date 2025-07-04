@@ -4,4 +4,5 @@ import back.vybz.feed_read_service.feed.dto.response.ResponseAboutDto;
 
 public interface AboutReadService {
     ResponseAboutDto getAboutRead(String aboutId);
+    ResponseAboutDto getBuskerAboutRead(String writerUuid);
 }

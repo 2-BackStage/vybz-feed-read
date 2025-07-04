@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NoticeReadRepositoryCustom {
     List<FeedRead> findWithScroll(String sortType, String lastId, int size);
+    List<FeedRead> findWithScrollByBusker(String sortType, String lastId, int size, String buskerUuid);
 }

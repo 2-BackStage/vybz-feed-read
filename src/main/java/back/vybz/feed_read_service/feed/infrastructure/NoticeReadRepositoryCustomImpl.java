@@ -37,4 +37,29 @@ public class NoticeReadRepositoryCustomImpl implements NoticeReadRepositoryCusto
 
         return mongoTemplate.find(query, FeedRead.class);
     }
+
+    @Override
+    public List<FeedRead> findWithScrollByBusker(String sortType, String lastId, int size, String buskerUuid) {
+        Query query = new Query();
+
+        // 공지사항만 조회하도록 필터 추가
+        query.addCriteria(Criteria.where("feedType").is("NOTICE"));
+        
+        // 특정 버스커의 공지만 조회
+        query.addCriteria(Criteria.where("writerUuid").is(buskerUuid));
+
+        if (lastId != null && !lastId.isBlank()) {
+            query.addCriteria(Criteria.where("_id").lt(lastId)); // ✅ String으로 직접 비교
+        }
+
+        Sort sort = switch (sortType.toUpperCase()) {
+            case "LIKES" -> Sort.by(Sort.Order.desc("likeCount"), Sort.Order.desc("_id"));
+            case "COMMENTS" -> Sort.by(Sort.Order.desc("commentCount"), Sort.Order.desc("_id"));
+            default -> Sort.by(Sort.Order.desc("_id"));
+        };
+
+        query.with(sort).limit(size + 1);
+
+        return mongoTemplate.find(query, FeedRead.class);
+    }
 }
